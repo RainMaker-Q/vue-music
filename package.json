@@ -8,14 +8,23 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "element-ui": "^2.12.0",
+    "hls.js": "^0.12.4",
+    "ssr-window": "^1.0.1",
+    "swiper": "^5.0.4",
+    "vue": "^2.6.10",
+    "vue-aplayer": "^1.6.1",
+    "vue-particles": "^1.0.9",
+    "vue-router": "^3.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-component": "^1.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "vue-template-compiler": "^2.6.10"
@@ -26,8 +35,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/essential"
     ],
     "rules": {},
     "parserOptions": {
