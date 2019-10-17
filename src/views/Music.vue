@@ -20,15 +20,18 @@
         ></vue-particles>
       </div>
     <SongsTable style="margin-top: 10px;"></SongsTable>
+
+    <div class="footer">
+      面朝大海
+      <a href="https://github.com/LRQLRQ/vue-music">
+          <img height="30px" width="30px" src="../assets/github.jpeg">
+      </a>
+      春暖花开
+    </div>
     
   </div>
 </template>
 
-
-<style scoped>
-
-
-</style>
 
 
 <script>
@@ -52,3 +55,14 @@ export default {
     
 }
 </script>
+
+<style  scoped>
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    height: 34px;
+    font-size: 18px;
+    color: white;
+}
+</style>

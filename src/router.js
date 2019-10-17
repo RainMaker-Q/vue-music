@@ -25,6 +25,17 @@ export default new Router({
       path: '/music',
       name: 'music',
       component: () => import('./views/Music.vue')
+    },
+    { //对对联的路由
+      path: '/couplets',
+      name: 'couplets',
+      component: () => import('./views/Couplets.vue')
+    },
+    {
+      path: '*',
+      component: () => import('./views/Music.vue')
     }
+
+
   ]
 })

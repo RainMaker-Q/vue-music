@@ -19,7 +19,7 @@
 
     
     <el-row id="search" type="flex" justify="center">
-      <el-col :span=6><el-input v-model="searchContent" placeholder="请输入你要搜索的歌曲"></el-input></el-col>
+      <el-col :span=6><el-input v-model.trim="searchContent" @keyup.enter.native="searchSongs" placeholder="请输入你要搜索的歌曲"></el-input></el-col>
       <el-button @click="searchSongs" type="primary" icon="el-icon-search" class="btn-search">搜索</el-button>
     </el-row>
   

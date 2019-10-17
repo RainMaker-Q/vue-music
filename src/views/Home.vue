@@ -3,7 +3,7 @@
     
     <div>
       <img alt="Vue logo" src="../assets/logo.png">
-      <h1><font color="red">初试VUE2 </font></h1>
+      <h1><font color="red">用Vue做一些有趣的玩意~ </font></h1>
     </div>
 
     <!-- <div style="position: fixed; width: 100%; height:100%;background:#394348">

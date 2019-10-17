@@ -4,8 +4,8 @@
       <div el-header style="background: gray">
         <div id="nav">
           <router-link to="/"><el-button type="danger">Home</el-button></router-link> 
-          <router-link to="/about"><el-button type="primary">About</el-button></router-link>  
-          <router-link to="/music"><el-button type="success">Music</el-button></router-link>
+          <router-link to="/couplets"><el-button type="primary">对联</el-button></router-link>  
+          <router-link to="/music"><el-button type="success">音乐</el-button></router-link>
         </div>
 
       </div>
@@ -24,6 +24,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
+
 </style>
