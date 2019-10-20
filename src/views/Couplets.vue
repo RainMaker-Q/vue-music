@@ -4,7 +4,7 @@
         <img class="pic" src="../assets/ddc.jpeg">
 
         <GenCouplets></GenCouplets>
-
+        
          <div class="footer">
             面朝大海
             <a href="https://github.com/LRQLRQ/vue-music">

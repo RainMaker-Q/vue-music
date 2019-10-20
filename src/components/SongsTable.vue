@@ -3,7 +3,7 @@
   <!-- <div el-header>Music</div> -->
   <div class="swiper-container">
 
-      <div class="swiper-wrapper">
+      <div class="swiper-wrapper" >
           <div class="swiper-slide"><img src="../assets/music1.jpg" alt="my_music" class="pic-music"></div>
           <div class="swiper-slide"><img src="../assets/music2.jpg" alt="my_music" class="pic-music"></div>
           <div class="swiper-slide"><img src="../assets/music3.jpg" alt="my_music" class="pic-music"></div>
@@ -219,8 +219,8 @@ const baseUrl = 'http://39.100.6.159:3000';
 
 <style  scoped>
 .pic-music {
-  width:500px;
-  height: 300px;
+  width: 60vw;
+  height: 30vh;
   margin-bottom: 50px;
 }
 

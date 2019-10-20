@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import About from './views/About.vue'
+import Music from './views/Music.vue'
+import Couplets from './components/GenCouplets.vue'
+
 
 Vue.use(Router)
 
@@ -11,7 +15,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      components: {
+        default: Home,
+        About: About,
+        Music: Music,
+        Couplets: Couplets
+      }
     },
     {
       path: '/about',
@@ -32,10 +41,14 @@ export default new Router({
       component: () => import('./views/Couplets.vue')
     },
     {
+      path: '/container',
+      // name: 'container',
+      component: () => import('./views/Container.vue')
+    },
+    {
       path: '*',
       component: () => import('./views/Music.vue')
     }
-
 
   ]
 })

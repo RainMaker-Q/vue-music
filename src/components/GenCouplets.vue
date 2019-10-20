@@ -3,7 +3,7 @@
         <div class="">
             <el-row type="flex" justify="center">
                 <el-col :span="12" >
-                    <el-input v-model="inputContent" placeholder="请输入上联" @keyup.enter.native="getAnswer"></el-input>
+                    <el-input v-model="inputContent" placeholder="请输入上联" @input="debounceFn" @keyup.enter.native="getAnswer"></el-input>
                 </el-col>
                 <el-button @click="getAnswer" class="btn-search" type="success" >对下联</el-button>
                 
@@ -29,13 +29,23 @@
 <script>
 import axios from 'axios'
 
+
 export default {
     name: 'gen-couplets',
     data: () => {
         return {
             inputContent: "",
             aiOutput: "",
+            debounceFn: {}
         }
+    },
+    mounted() {
+        let _this = this;
+        let fn = this.debounce(()=>{
+            console.log("防抖");
+            _this.getAnswer();
+            }, 1200);
+        this.debounceFn = fn;
     },
     computed: {
         splitUpWords() {
@@ -55,6 +65,7 @@ export default {
     },
     methods: {
         getAnswer() {
+            if(this.inputContent == '') return;
             let _this = this;
             let url = 'https://ai-backend.binwang.me/chat/couplet/' + _this.inputContent;
             axios.get(url).
@@ -63,7 +74,20 @@ export default {
                     console.log( answer );
                     _this.aiOutput = answer;
                 })
+        },
+        debounce(fn, delay=200) {
+            let timer;
+            return function() {
+                let context = this;
+                let args = arguments;
+                if(timer) clearTimeout(timer);
+                timer = setTimeout( ()=>{
+                    fn.call(context, args);
+                    timer = null;
+                }, delay);
+            }
         }
+
     }
 }
 </script>

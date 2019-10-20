@@ -6,12 +6,18 @@
           <router-link to="/"><el-button type="danger">Home</el-button></router-link> 
           <router-link to="/couplets"><el-button type="primary">对联</el-button></router-link>  
           <router-link to="/music"><el-button type="success">音乐</el-button></router-link>
+          <router-link to="/container"><el-button type="warning">容器页面</el-button></router-link>
         </div>
 
       </div>
       <div el-main>
         <router-view/>
       </div>
+
+      <!-- <div>
+        <router-view name="Couplets"></router-view>
+      </div> -->
+
     </div>
 
   </div>
