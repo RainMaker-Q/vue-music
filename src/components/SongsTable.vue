@@ -24,7 +24,7 @@
     </el-row>
   
 
-    <div el-container>
+    <div el-container style="">
       <!-- <div el-aside width="200px">Aside</div>   -->
       <div el-main>
         <el-row :gutter="20">
@@ -219,8 +219,8 @@ const baseUrl = 'http://39.100.6.159:3000';
 
 <style  scoped>
 .pic-music {
-  width: 60vw;
-  height: 30vh;
+  width: 500px;
+  height: 300px;
   margin-bottom: 50px;
 }
 

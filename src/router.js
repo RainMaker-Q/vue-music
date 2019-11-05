@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Music from './views/Music.vue'
 import Couplets from './components/GenCouplets.vue'
-
+import Login from './views/Login.vue'
 
 Vue.use(Router)
 
@@ -16,7 +16,7 @@ export default new Router({
       path: '/',
       name: 'home',
       components: {
-        default: Home,
+        default: Login,
         About: About,
         Music: Music,
         Couplets: Couplets
@@ -44,6 +44,11 @@ export default new Router({
       path: '/container',
       // name: 'container',
       component: () => import('./views/Container.vue')
+    },
+
+    {
+      path: '/login',
+      component: () => import('./views/Login.vue')
     },
     {
       path: '*',
