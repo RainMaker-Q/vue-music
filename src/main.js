@@ -14,5 +14,5 @@ Vue.use(VueParticles)
 
 new Vue({
   router,
-  render: h => h(Login)
+  render: h => h(App)
 }).$mount('#app')

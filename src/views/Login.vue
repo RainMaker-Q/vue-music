@@ -13,62 +13,119 @@
         </el-row>
 
         <div v-if="choose=='登录'">
-            <el-row style="margin: 30px">
-                <el-input 
-                    placeholder="请输入账号"
-                    v-model="username">
-                    <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
-                </el-input>
+            <el-row style="margin: 30px; " >
+                <el-col :span="5">
+                    <font size="2" >账号:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input 
+                        placeholder="请输入账号"
+                        v-model="username">
+                        <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
+                    </el-input>
+                </el-col>
             </el-row>
             <el-row style="margin: 30px">
-                <el-input
-                    placeholder="请输入密码"
-                    v-model="password"
-                    show-password>
-                    <i slot="prefix" class="el-input__icon el-icon-lock"></i>
-                </el-input>
+                <el-col :span="5">
+                    <font size="2" >密码:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input
+                        placeholder="请输入密码"
+                        v-model="password"
+                        show-password>
+                        <i slot="prefix" class="el-input__icon el-icon-lock"></i>
+                    </el-input>
+                </el-col>
             </el-row>
+
+            <el-row style="margin: 30px">
+                <el-col :span="5">
+                    <font size="2" >验证码:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input
+                        placeholder="请输入验证码"
+                        v-model="captchaInput"
+                        >
+                    </el-input>
+                </el-col>
+            </el-row>
+            <div v-html="captchaSvg"></div>
+
         </div>
         <div v-if="choose=='注册'">
 
-            <el-row style="margin: 30px">
-                <el-input 
-                    placeholder="请输入账号"
-                    v-model="username">
-                    <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
-                </el-input>
+            <el-row style="margin: 30px; ">
+                <div v-if="!userNameOk" style="display:flex;flex-direction:row-reverse;margin-bottom:2px;">
+                    <el-tag type="danger"> {{userNameMsg}} </el-tag>
+                </div>
+
+                <el-col :span="6">
+                    <font size="2" >账号:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input 
+                        placeholder="请输入账号"
+                        @blur="checkUserNameOk"
+                        v-model="username">
+                        <i slot="prefix" class="el-input__icon el-icon-user-solid"></i>
+                    </el-input>
+                </el-col>
             </el-row>
             <el-row style="margin: 30px">
-                <el-input
-                    placeholder="请输入密码"
-                    v-model="password"
-                    show-password>
-                    <i slot="prefix" class="el-input__icon el-icon-lock"></i>
-                </el-input>
+                <div v-if="!pwdSameOk" style="display:flex;flex-direction:row-reverse;margin-bottom:2px;">
+                    <el-tag type="danger"> {{pwdMsg}} </el-tag>
+                </div>
+                <el-col :span="6">
+                    <font size="2" >密码:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input
+                        placeholder="请输入密码"
+                        v-model="password"
+                        @blur="checkPwdSame"
+                        show-password>
+                        <i slot="prefix" class="el-input__icon el-icon-lock"></i>
+                    </el-input>
+                </el-col>
             </el-row>
             <el-row style="margin: 30px">
-                <el-input
-                    placeholder="请再次输入密码"
-                    v-model="password2"
-                    @blur="checkPwdSame"
-                    show-password>
-                    <i slot="prefix" class="el-input__icon el-icon-lock"></i>
-                </el-input>
+                <el-col :span="6">
+                    <font size="2" >确认密码:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input
+                        placeholder="请再次输入密码"
+                        v-model="password2"
+                        @blur="checkPwdSame"
+                        show-password>
+                        <i slot="prefix" class="el-input__icon el-icon-lock"></i>
+                    </el-input>
+                </el-col>
             </el-row>
             <el-row style="margin: 30px">
-                <el-input
-                    placeholder="请输入邀请码"
-                    v-model="invitCode"
-                    show-password>
-                    <i slot="prefix" class="el-input__icon el-icon-lock"></i>
-                </el-input>
+                <el-col :span="6">
+                    <font size="2" >邀请码:</font>
+                </el-col>
+                <el-col :span="18">
+                    <el-input
+                        placeholder="请输入邀请码"
+                        v-model="invitCode"
+                        >
+                        <i slot="prefix" class="el-input__icon el-icon-lock"></i>
+                    </el-input>
+                </el-col>
             </el-row>
 
         </div>
 
 
+        
+        
+        
         <el-row style="margin: 20px auto;">
-            <el-button @click="submit" type="success" style="width:280px;">提交</el-button>
+            <el-button @click="submit" type="success" style="width:280px;" :disabled="!(pwdSameOk&&userNameOk)">提交</el-button>
         </el-row>
         
     </div>
@@ -80,7 +137,7 @@
 <script>
 import axios from 'axios'
 
-const baseUrl = 'http://10.28.218.154:3000/myapi';
+const baseUrl = 'http://10.128.232.65:3000/myapi';
 
 export default {
     // name: login,
@@ -91,22 +148,53 @@ export default {
             password: '',
             password2: '',
             invitCode: '',      //邀请码
-            isSame: true,       //两次密码是否一致,默认第一次一致，等再次输入密码之后进行判断
+            userNameOk: true,   //账号输入是否符合规范
+            userNameMsg: '',    //用户名有误时提示信息
+            pwdSameOk: true,    //两次密码是否一致,默认第一次一致，等再次输入密码之后进行判断
+            pwdMsg: '',     //密码不一致信息
+            captcha: '',        //验证码
+            captchaInput: '',   //输入的验证码
+            captchaSvg: '',     //验证码svg图片
+
+
 
         }
+    },
+    mounted() {
+        this.getCaptcha();      //请求验证码
     },
     methods: {
 
         submit() {
-            let _this = this;
             if(this.choose=='登录') {
-                _this.login();
+                if(!this.username) {
+                    this.showMessage('warning', '请输入用户名!');
+                }
+                else if(!this.password) {
+                    this.showMessage('warning', '请输入密码!');
+                }
+                else if(this.captchaInput.toLowerCase()===this.captcha.toLowerCase()) {
+                    this.login();
+                } else {
+                    this.showMessage('warning', '验证码输入错误!');
+                }
+                
             } else if(this.choose=='注册') {
-                _this.checkUser();
+                this.checkUser();
             }
         },
 
-        login() {
+        getCaptcha() {
+            let _this = this;
+            axios.get(baseUrl+'/captcha')
+            .then(res=>{
+                let data = res.data;
+                _this.captchaSvg = data.data;
+                _this.captcha = data.text;
+            })
+        },
+
+        login() {       //登录的接口
             axios.post(baseUrl+'/login',
                 {
                 username: this.username,
@@ -114,28 +202,35 @@ export default {
             })
             .then(res=>{
                 let data = res.data;
-                if(data.code==200) {
+                if(data.code==200) {    //返回200注册成功
                     localStorage.setItem("username", data.data.username);
                     localStorage.setItem("userid", data.data.userid);
                     this.showMessage('success', data.msg);
-                } else if(data.code==2) {
+                    this.$router.push({path: '/music'});
+
+                } else if(data.code==2) {       //返回2说明账号密码错误
+                    this.showMessage('warning', data.msg);
+                } else if(data.code==4) {       //返回4说明该用户不存在
                     this.showMessage('warning', data.msg);
                 }
-                console.log(res.data)
             })
         },
 
-        checkUser() {       //检测当前用户是否存在
+        checkUser() {       //检测当前用户是否存在并注册
             let _this = this;
+            if(this.invitCode!=='bupt') {
+                _this.showMessage('warning', '邀请码错误，请先获得邀请码！');
+                return ;
+            }
             axios.post(baseUrl+ '/isUserExist',
                 {
                 username: _this.username
             })
             .then(res => {
                 let data = res.data;
-                if(data.code==200) {      //返回代码是200说明当前用户名可用
+                if(data.code==200) {      //返回代码是3说明当前用户名可用
                     _this.register();     //进行注册
-                } else if(data.code==3) {
+                } else if(data.code==3) {   //返回3说明该用户名已经被占用
                     _this.showMessage('warning', data.msg);
 
                 }
@@ -156,6 +251,8 @@ export default {
                 _this.showMessage('success', data.msg);      //显示注册成功
                 _this.username = '';    //清空用户名
                 _this.password = '';    //清空密码
+                _this.password2 = '';
+                _this.invitCode = '';
             })
         },
 
@@ -167,16 +264,33 @@ export default {
         },
 
         checkPwdSame() {                    //检测两次密码输入是否一致
-            if(this.password===this.password2) {
-                this.isSame = true;
-                this.showMessage('success', "密码输入一致")
-            } else {
-                this.isSame = false;
-                this.showMessage('warning', "两次输入密码不一致");
+            if(this.password===this.password2 && this.password.length>=6) {
+                this.pwdSameOk = true;
+            } 
+            if(this.password!==this.password2) {
+                this.pwdSameOk = false;
+                this.pwdMsg = '两次密码输入不一致'
             }
             if(this.password.length<6) {
-                this.showMessage('warning', "密码长度不小于6位");
+                this.pwdSameOk = false;
+                this.pwdMsg = '密码长度不小于6位'
             }
+        },
+        checkUserNameOk() { //检查注册的用户名是否符合规范: 长度大于6位且无非法字符
+            var patrn=/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;  
+
+            if(patrn.test(this.username)) {
+                this.userNameMsg = '您输入的内容有非法字符';
+                this.userNameOk = false;
+            }
+            else if(this.username.length<6) {
+                this.userNameMsg = '用户名至少为6位';
+                this.userNameOk = false;
+            } else {
+                this.userNameOk = true;
+            }
+
+            
         }
     }
 
