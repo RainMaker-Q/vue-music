@@ -13,7 +13,7 @@
     "element-ui": "^2.12.0",
     "hls.js": "^0.12.4",
     "ssr-window": "^1.0.1",
-    "swiper": "^5.0.4",
+    "swiper": "^6.5.1",
     "vue": "^2.6.10",
     "vue-aplayer": "^1.6.1",
     "vue-particles": "^1.0.9",
